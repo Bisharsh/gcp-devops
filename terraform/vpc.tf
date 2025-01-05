@@ -11,8 +11,8 @@ resource "google_compute_network" "gke-vpc" {
     name                            = "gke-vpc"
     mtu                             = 1460
     routing_mode                    = "REGIONAL"
-    auto_create_subnetworks         = "false"
-    delete_default_routes_on_create = "false"
+    auto_create_subnetworks         = false
+    delete_default_routes_on_create = false
 
     depends_on = [
         google_project_service.compute,
