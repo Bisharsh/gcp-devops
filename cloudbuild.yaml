@@ -30,3 +30,6 @@ steps:
 
 substitutions:
   _TF_ACTION: 'plan'  # Default action
+
+options:
+  logging: CLOUD_LOGGING_ONLY

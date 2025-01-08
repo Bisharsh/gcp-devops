@@ -1,17 +1,18 @@
 resource "google_container_cluster" "devops-gke"{
     name                        = "devops-gke"
-    location                    = "us-central1-a"
+    location                    = "us-central1"
     remove_default_node_pool    = true
     initial_node_count          = 1
-    network                     = google_compute_network.gke-vpc.self_link
-    subnetwork                  = google_compute_subnetwork.private.self_link
+    network                     = google_compute_network.gke_vpc.self_link
+    subnetwork                  = google_compute_subnetwork.gke_subnet.self_link
+
     networking_mode             = "VPC_NATIVE"
 
     node_locations = [
         "us-central1-b"
     ]
 
-    addon_config {
+    addons_config {
         # http_load_balancing {
         #     disabled = true
         # }

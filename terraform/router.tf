@@ -1,5 +1,5 @@
-resource "google_compute_router" "router"{
-    name    = "router"
-    region  = "us-central1"
-    network = google_compute_network.gke_vpc.id
+resource "google_compute_router" "router" {
+  name    = "gke-router"
+  network = google_compute_network.gke_vpc.id
+  region  = "us-central1"
 }
