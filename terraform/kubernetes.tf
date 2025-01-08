@@ -12,7 +12,7 @@ resource "google_container_cluster" "devops-gke"{
         "us-central1-b"
     ]
 
-    addon_config {
+    addons_config {
         # http_load_balancing {
         #     disabled = true
         # }
