@@ -1,0 +1,32 @@
+steps:
+  # Terraform init with remote backend
+  - id: 'tf init'
+    name: 'hashicorp/terraform:1.0.0'
+    dir: 'terraform'
+    args:
+    - 'init'
+    - '-backend-config=bucket=gke_tf_state_backend'
+    - '-backend-config=prefix=terraform/state'
+
+  # Terraform validate
+  - id: 'tf validate'
+    name: 'hashicorp/terraform:1.0.0'
+    dir: 'terraform'
+    args: ['validate']
+
+  # Terraform action (plan, apply, or destroy)
+  - id: 'tf action'
+    name: 'hashicorp/terraform:1.0.0'
+    dir: 'terraform'
+    entrypoint: 'sh'
+    args:
+    - '-c'
+    - |
+      if [ "${_TF_ACTION}" = "plan" ]; then
+        terraform plan
+      else
+        terraform ${_TF_ACTION} -auto-approve
+      fi
+
+substitutions:
+  _TF_ACTION: 'plan'  # Default action
