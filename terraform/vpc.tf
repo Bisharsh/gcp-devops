@@ -3,10 +3,10 @@ resource "google_project_service" "compute" {
 }
 
 resource "google_project_service" "container" {
-    servie = "container.googleapis.com"
+  service = "container.googleapis.com"
 }
 
-resource "google_compute_network" "gke-vpc" {
+resource "google_compute_network" "gke_vpc" {
     # project = GCP-DevOps-Project
     name                            = "gke-vpc"
     mtu                             = 1460
