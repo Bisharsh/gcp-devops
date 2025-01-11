@@ -1,9 +1,9 @@
----
+# ---
 
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: gcp-devops-project
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: gcp-devops-project
 
 ---
 
