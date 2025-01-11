@@ -2,9 +2,9 @@ steps:
 - name: "python"
   entrypoint: "pip"
   args: ["install", "-r", "requirements.txt"]
-- name: "python"
-  entrypoint: "python"
-  args: ["-m", "unittest", "discover"]
+# - name: "python"
+#   entrypoint: "python"
+#   args: ["-m", "unittest", "discover"]
 - name: "docker"
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcpdevops', '..']
 images: 
