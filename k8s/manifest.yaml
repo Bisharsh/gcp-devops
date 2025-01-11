@@ -1,0 +1,32 @@
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gcp-devops-project
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcp-devops-deploy
+  namespace: gcp-devops-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gcp-devops-app
+  template:
+    metadata:
+      labels:
+        app: gcp-devops-app
+    spec:
+      containers:
+      - name: gcp-devops-container
+        image: gcr.io/planar-osprey-446621-b4/gcpdevops:latest
+        ports:
+        - containerPort: 5000
+        env:
+          - name: PORT
+            value: "5000"

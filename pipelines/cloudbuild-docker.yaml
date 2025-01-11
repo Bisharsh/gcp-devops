@@ -18,10 +18,21 @@ steps:
     '-f', '/workspace/Dockerfile',
     '/workspace'
   ]
-
 images: 
-  - 'gcr.io/$PROJECT_ID/gcpdevops'
+- 'gcr.io/$PROJECT_ID/gcpdevops'
+
+## Deploy the container to GKE
+
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args: 
+  -  'run'
+  - --filename=k8s/manifest.yaml
+  - --location=us-central1-a
+  - --cluster=devops-gke
+  - --namespace=gcp-devops-project
+  - --image=gcr.io/$PROJECT_ID/gcpdevops:latest'
+
 options:
   logging: CLOUD_LOGGING_ONLY
   machineType: "N1_HIGHCPU_8"
-timeout: "1200s"
+timeout: "1200s"  

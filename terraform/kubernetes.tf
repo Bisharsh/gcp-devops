@@ -1,6 +1,6 @@
 resource "google_container_cluster" "devops-gke"{
     name                        = "devops-gke"
-    location                    = "us-central1"
+    location                    = "us-central1-a"
     remove_default_node_pool    = true
     initial_node_count          = 1
     network                     = google_compute_network.gke_vpc.self_link
