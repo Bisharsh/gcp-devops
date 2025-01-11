@@ -6,13 +6,13 @@ steps:
 #   entrypoint: "python"
 #   args: ["-m", "unittest", "discover"]
 - name: "docker"
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcpdevops', '-f', 'Dockerfile', '..']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcpdevops', '-f', '../Dockerfile', '..']
 images: 
   - 'gcr.io/$PROJECT_ID/gcpdevops'
 options:
   logging: CLOUD_LOGGING_ONLY
   machineType: "N1_HIGHCPU_8"  # Specify a machine type with more resources
-timeout: "1200s"  # Set timeout to 20 minutes
+timeout: "1800s"  # Set timeout to 30 minutes
 
 
 
