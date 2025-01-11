@@ -11,5 +11,8 @@ images:
   - 'gcr.io/$PROJECT_ID/gcpdevops'
 options:
   logging: CLOUD_LOGGING_ONLY
+  machineType: "N1_HIGHCPU_8"  # Specify a machine type with more resources
+timeout: "1200s"  # Set timeout to 20 minutes
+
 
 
