@@ -37,30 +37,30 @@ spec:
           requests:
             memory: "256Mi"
             cpu: "250m"
-        tolerations:
-        - key: instance_type
-          operator: Equal
-          value: spot
-          effect: NoSchedule
+      tolerations:
+      - key: instance_type
+        operator: Equal
+        value: spot
+        effect: NoSchedule
 
-        affinity:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-              - matchExpressions:
-                - key: team
-                  operator: In
-                  values:
-                  - DevOps
-                
-          podAntiAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                      - gcp-devops-app
-                topologyKey: "kubernetes.io/hostname"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: team
+                operator: In
+                values:
+                - DevOps
+
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - gcp-devops-app
+              topologyKey: "kubernetes.io/hostname"
 
 ---
