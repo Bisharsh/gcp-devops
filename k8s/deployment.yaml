@@ -1,0 +1,66 @@
+# ---
+
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: gcp-devops-project
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcp-devops-deploy
+  namespace: gcp-devops-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gcp-devops-app
+  template:
+    metadata:
+      labels:
+        app: gcp-devops-app
+    spec:
+      containers:
+      - name: gcp-devops-container
+        image: gcr.io/planar-osprey-446621-b4/gcpdevops:latest
+        ports:
+        - containerPort: 5000
+        env:
+          - name: PORT
+            value: "5000"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        tolerations:
+        - key: instance_type
+          operator: Equal
+          value: spot
+          effect: NoSchedule
+
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: team
+                  operator: In
+                  values:
+                  - DevOps
+                
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                      - gcp-devops-app
+                topologyKey: "kubernetes.io/hostname"
+
+---
