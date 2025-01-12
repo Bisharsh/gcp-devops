@@ -29,7 +29,7 @@ steps:
       fi
 
 substitutions:
-  _TF_ACTION: 'plan'  # Default action
+  _TF_ACTION: 'apply --auto-approve'  # Default action
 
 options:
   logging: CLOUD_LOGGING_ONLY
