@@ -22,6 +22,9 @@ spec:
       labels:
         app: gcp-devops-app
     spec:
+      imagePullSecrets:
+      - name: gcr-json-key
+      - name: gcr-new-json-key
       containers:
       - name: gcp-devops-container
         image: gcr.io/planar-osprey-446621-b4/gcpdevops:latest
