@@ -1,4 +1,5 @@
 steps:
+# Debug step - can be removed once pipeline is working
 - name: 'alpine'
   entrypoint: 'sh'
   args:
@@ -11,33 +12,43 @@ steps:
       echo "Parent directory contents:"
       ls -la ..
 
-- name: "docker"
-  args: [
-    'build',
-    '-t', 'gcr.io/$PROJECT_ID/gcpdevops',
-    '-f', '/workspace/Dockerfile',
-    '/workspace'
-  ]
+# - name: "docker"
+#   args: [
+#     'build',
+#     '-t', 'gcr.io/$PROJECT_ID/gcpdevops',
+#     '-f', '/workspace/Dockerfile',
+#     '/workspace'
+#   ]
 
-# creating a namespace
-- name: "gcr.io/cloud-builders/kubectl"
-  args: 
-  - 'apply'
-  - '-f'
-  - 'k8s/namespace.yaml'
+# # Get GKE credentials 
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   args:
+#   - 'container'
+#   - 'clusters'
+#   - 'get-credentials'
+#   - 'devops-gke'
+#   - '--zone=us-central1-a'
+#   - '--project=$PROJECT_ID'
 
-# Deploy the container to GKE
-- name: "gcr.io/cloud-builders/gke-deploy"
-  args: 
-  - 'run'
-  - '--filename=k8s/manifest.yaml'
-  - '--location=us-central1-a'
-  - '--cluster=devops-gke'
-  - '--namespace=gcp-devops-project'
-  - '--image=gcr.io/$PROJECT_ID/gcpdevops:latest'
+# # Create namespace
+# - name: "gcr.io/cloud-builders/kubectl"
+#   args: 
+#   - 'apply'
+#   - '-f'
+#   - 'k8s/namespace.yaml'
+  
+# # Deploy to GKE
+# - name: "gcr.io/cloud-builders/gke-deploy"
+#   args: 
+#   - 'run'
+#   - '--filename=k8s/'
+#   - '--location=us-central1-a'
+#   - '--cluster=devops-gke'
+#   - '--namespace=gcp-devops-project'
+#   - '--image=gcr.io/$PROJECT_ID/gcpdevops:latest'
 
-images: 
-  - 'gcr.io/$PROJECT_ID/gcpdevops'
+# images: 
+#   - 'gcr.io/$PROJECT_ID/gcpdevops'
 
 options:
   logging: CLOUD_LOGGING_ONLY
