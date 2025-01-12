@@ -7,7 +7,7 @@ resource "google_project_service" "container" {
 }
 
 resource "google_compute_network" "gke_vpc" {
-    # project = GCP-DevOps-Project
+    project                         = var.project_id
     name                            = "gke-vpc"
     mtu                             = 1460
     routing_mode                    = "REGIONAL"
