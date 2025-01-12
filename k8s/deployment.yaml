@@ -30,19 +30,27 @@ spec:
         env:
           - name: PORT
             value: "5000"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        tolerations:
+        - key: instance_type
+          operator: Equal
+          value: spot
+          effect: NoSchedule
+
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: team
+                  operator: In
+                  values:
+                  - DevOps
 
 ---
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: gcp-devops-svc
-  namespace: gcp-devops-project
-spec:
-  selector:
-    app: gcp-devops-app
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 5000
-  type: LoadBalancer
