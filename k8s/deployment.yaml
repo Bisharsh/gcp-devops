@@ -52,5 +52,15 @@ spec:
                   operator: In
                   values:
                   - DevOps
+                
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                      - gcp-devops-app
+                topologyKey: "kubernetes.io/hostname"
 
 ---
